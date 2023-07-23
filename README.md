@@ -34,6 +34,15 @@ Add the `template` directive to the `dotbot` YAML file:
               Linux: cache --timeout 36000
 ```
 
+Add params as file, in `json` or `yaml`
+
+```yaml
+- template:
+    - ~/.gitconfig:
+        source_file: gitconfig
+        params: ./params.yml
+```
+
 The corresponding template file looks like:
 ```toml
 [core]

@@ -5,6 +5,8 @@ import sys
 import os
 import platform
 import dotbot
+import json
+import yaml
 
 
 def _inject():
@@ -47,9 +49,27 @@ class Template(dotbot.Plugin):
             raise ValueError('Cannot handle this directive %s' % directive)
 
     def _parse_params(self, params):
+        if isinstance(params, str):
+            if not os.path.isfile(params):
+                err_msg = "Could not read params file %s" % params
+                self._log.error(err_msg)
+                raise FileNotFoundError(err_msg)
+
+            params = self._read_params_file(params)
+
         params = self._add_homedir(params)
         params = self._parse_platform_specific(params)
         return params
+
+    @staticmethod
+    def _read_params_file(file):
+        _, ext = os.path.splitext(file)
+        with open(file) as f:
+            if ext == ".json":
+                data = json.load(f)
+            else:
+                data = yaml.safe_load(f)
+        return data
 
     def _add_homedir(self, params):
         params['HOME_DIR'] = os.environ['HOME']
