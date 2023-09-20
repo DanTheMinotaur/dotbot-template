@@ -1,4 +1,0 @@
-- template:
-    - ./config.toml:
-        source_file: template.toml.j2
-        params: ./params.yml

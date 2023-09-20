@@ -40,7 +40,7 @@ Add params as a separate file, supports `json` or `yaml` format.
 - template:
     - ~/.gitconfig:
         source_file: gitconfig
-        params: ./params.yml
+        params: ./git_params.yaml
 ```
 
 
